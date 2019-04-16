@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:max_app/product_manager.dart';
+import 'package:max_app/pages/home.dart';
 
 void main() {
   runApp(Home());
@@ -15,12 +15,7 @@ class Home extends StatelessWidget {
         accentColor: Colors.deepPurple,
         brightness: Brightness.light
       ),
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text("EasyList"),
-            centerTitle: true,
-          ),
-          body: ProductManager()),
+      home: HomePage()
     );
   }
 }
