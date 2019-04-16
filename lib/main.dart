@@ -10,12 +10,17 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        accentColor: Colors.deepPurple,
+        brightness: Brightness.light
+      ),
       home: Scaffold(
           appBar: AppBar(
             title: Text("EasyList"),
             centerTitle: true,
           ),
-          body: ProductManager("Food Teaster")),
+          body: ProductManager()),
     );
   }
 }
