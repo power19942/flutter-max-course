@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:max_app/pages/home.dart';
+import 'package:max_app/pages/auth.dart';
 
 final _platformChannel = MethodChannel('flutter-course.com/battery');
   Future<Null> _getBatteryLevel() async {
@@ -15,7 +15,7 @@ final _platformChannel = MethodChannel('flutter-course.com/battery');
     print(batteryLevel);
   }
 void main() {
-  _getBatteryLevel();
+  //_getBatteryLevel();
   runApp(Home());
 }
 
@@ -30,7 +30,7 @@ class Home extends StatelessWidget {
         accentColor: Colors.deepPurple,
         brightness: Brightness.light
       ),
-      home: HomePage()
+      home: AuthPage()
     );
   }
 }
