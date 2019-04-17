@@ -4,7 +4,7 @@ import 'package:max_app/pages/product.dart';
 class Products extends StatelessWidget {
   final List<String> products;
 
-  Products([this.products = const []]) {}
+  Products([this.products = const []]);
 
   Widget _buildProductItem(BuildContext context, int index) {
     return Card(
