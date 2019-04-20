@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:max_app/widgets/ui_elements/title_default.dart';
 
 class ProductPage extends StatelessWidget {
   final String title;
@@ -46,7 +47,7 @@ class ProductPage extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Text(title),
+              TitleDefault(title),
               FlatButton(
                   color: Colors.red,
                   textColor: Colors.white,

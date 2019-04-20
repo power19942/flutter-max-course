@@ -13,36 +13,36 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   String _titleValue;
   String _descriptionValue;
   double _priceValue = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.all(10),
-        child: ListView(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                TextField(
-                  onChanged: (String val) {
-                    setState(() {
-                      _titleValue = val;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Product Title",
-                  ),
-                ),
-                TextField(
-                  onChanged: (String val) {
-                    setState(() {
-                      _descriptionValue = val;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Product Description",
-                  ),
-                  maxLines: 4,
-                ),
-                TextField(
+
+  Widget _buildTitleTextField() {
+    return TextField(
+      onChanged: (String val) {
+        setState(() {
+          _titleValue = val;
+        });
+      },
+      decoration: InputDecoration(
+        labelText: "Product Title",
+      ),
+    );
+  }
+
+  Widget _buildDescriptionTextField() {
+    return TextField(
+      onChanged: (String val) {
+        setState(() {
+          _descriptionValue = val;
+        });
+      },
+      decoration: InputDecoration(
+        labelText: "Product Description",
+      ),
+      maxLines: 4,
+    );
+  }
+
+   Widget _buildPriceTextField() {
+    return TextField(
                   onChanged: (String val) {
                     setState(() {
                       _priceValue = double.parse(val);
@@ -52,22 +52,39 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
                     labelText: "Product Price",
                   ),
                   keyboardType: TextInputType.number,
-                ),
-                SizedBox(height: 10,),
-                RaisedButton(
-                  child: Text("Save"),
-                  color: Theme.of(context).primaryColor,
-                  textColor: Colors.white,
-                  onPressed: () {
+                );
+  }
+
+  void _submitForm() {
                     final Map<String, dynamic> product = {
                       'title': _titleValue,
                       'description': _descriptionValue,
                       'price': _priceValue,
-                      'image':'assets/food.jpg'
+                      'image': 'assets/food.jpg'
                     };
                     widget.addProduct(product);
                     Navigator.pushReplacementNamed(context, '/');
-                  },
+                  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.all(10),
+        child: ListView(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                _buildTitleTextField(),
+                _buildDescriptionTextField(),
+                _buildPriceTextField(),
+                SizedBox(
+                  height: 10,
+                ),
+                RaisedButton(
+                  child: Text("Save"),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                  onPressed: _submitForm,
                 )
               ],
             )

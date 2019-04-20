@@ -4,9 +4,10 @@ import 'package:max_app/pages/auth.dart';
 import 'package:max_app/pages/product.dart';
 import 'package:max_app/pages/product_admin.dart';
 import 'package:max_app/pages/products.dart';
+// import 'package:flutter/rendering.dart';
 
 final _platformChannel = MethodChannel('flutter-course.com/battery');
-  Future<Null> _getBatteryLevel() async {
+Future<Null> _getBatteryLevel() async {
     String batteryLevel;
     try {
       final int result = await _platformChannel.invokeMethod('getBatteryLevel');
@@ -17,8 +18,12 @@ final _platformChannel = MethodChannel('flutter-course.com/battery');
     }
     print(batteryLevel);
   }
+
 void main() {
   //_getBatteryLevel();
+  // debugPaintBaselinesEnabled = true;
+  // debugPaintSizeEnabled = true;
+  // debugPaintPointersEnabled = true;
   runApp(MyApp());
 }
 
