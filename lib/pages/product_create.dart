@@ -18,7 +18,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   Widget _buildTitleTextField() {
     return TextFormField(
       validator: (String val){
-        if(val.isEmpty){
+        if(val.isEmpty || ){
           return 'title is required';
         }
       },
@@ -54,6 +54,11 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
 
   Widget _buildPriceTextField() {
     return TextFormField(
+       validator: (String val){
+        if(val.isEmpty){
+          return 'Price is required';
+        }
+      },
       onSaved: (String val) {
         setState(() {
           _priceValue = double.parse(val);
@@ -89,7 +94,12 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     final targetWidth = deviceWidth > 550 ? 500 : deviceWidth * .95;
     final double targetPadding = deviceWidth - targetWidth;
 
-    return Container(
+    return GestureDetector(
+      onTap: (){
+        //close keyboard
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Container(
         width: targetWidth,
         margin: EdgeInsets.all(10),
         child: Form(
@@ -114,6 +124,6 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
               ],
             )
           ],
-        )));
+        ))));
   }
 }
