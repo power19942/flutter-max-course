@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:max_app/models/product.dart';
 
 class ProductEditPage extends StatefulWidget {
   final Function addProduct;
   final Function updateProduct;
-  final Map<String, dynamic> product;
+  final Product product;
   final int index;
 
   ProductEditPage(
@@ -21,7 +22,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
 
   Widget _buildTitleTextField() {
     return TextFormField(
-      initialValue: widget.product == null ? '' : widget.product['title'],
+      initialValue: widget.product == null ? '' : widget.product.title,
       validator: (String val) {
         if (val.isEmpty) {
           return 'title is required';
@@ -38,7 +39,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
 
   Widget _buildDescriptionTextField() {
     return TextFormField(
-      initialValue: widget.product == null ? '' : widget.product['description'],
+      initialValue: widget.product == null ? '' : widget.product.description,
       validator: (String val) {
         if (val.isEmpty) {
           return 'Description is required';
@@ -57,7 +58,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
   Widget _buildPriceTextField() {
     return TextFormField(
       initialValue:
-          widget.product == null ? '' : widget.product['price'].toString(),
+          widget.product == null ? '' : widget.product.price.toString(),
       validator: (String val) {
         if (val.isEmpty) {
           return 'Price is required';
@@ -80,12 +81,11 @@ class _ProductEditPageState extends State<ProductEditPage> {
     }
     //call onSaved on TextFormField
     _formKey.currentState.save();
-    final Map<String, dynamic> product = {
-      'title': _titleValue,
-      'description': _descriptionValue,
-      'price': _priceValue,
-      'image': 'assets/food.jpg'
-    };
+    final Product product = Product(title:_titleValue,
+    description: _descriptionValue,
+    price:_priceValue,
+    image: 'assets/food.jpg');
+    
     if (widget.product == null) {
       widget.addProduct(product);
     } else {
