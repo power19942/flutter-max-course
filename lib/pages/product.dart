@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:max_app/models/product.dart';
+import 'package:max_app/scoped_models/products.dart';
 import 'package:max_app/widgets/ui_elements/title_default.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class ProductPage extends StatelessWidget {
-  final String title;
-  final String imageUrl;
 
-  ProductPage(this.title, this.imageUrl);
+  final int productIndex;
+
+  ProductPage(this.productIndex);
 
   _showWarningDialog(BuildContext context) {
     showDialog(
@@ -36,18 +39,21 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      child: Scaffold(
+      child: ScopedModelDescendant<ProductsModel>( 
+        builder: (context,child,ProductsModel model){
+          final Product product = model.products[productIndex];
+          return Scaffold(
           appBar: AppBar(
-            title: Text(title),
+            title: Text(product.title),
           ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Image.asset(imageUrl),
+              Image.asset(product.image),
               SizedBox(
                 height: 10,
               ),
-              TitleDefault(title),
+              TitleDefault(product.title),
               FlatButton(
                   color: Colors.red,
                   textColor: Colors.white,
@@ -55,7 +61,9 @@ class ProductPage extends StatelessWidget {
                   onPressed:()=>  _showWarningDialog(context)
               )
             ],
-          )),
+          ));
+        },
+      ),
       onWillPop: () {
         Navigator.pop(context, false);
         return Future.value(false);

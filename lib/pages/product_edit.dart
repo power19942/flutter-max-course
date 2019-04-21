@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:max_app/models/product.dart';
+import 'package:max_app/scoped_models/products.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class ProductEditPage extends StatefulWidget {
   final Function addProduct;
@@ -74,25 +76,38 @@ class _ProductEditPageState extends State<ProductEditPage> {
     );
   }
 
-  void _submitForm() {
+  _submitForm(Function addProduct,Function updateProduct) {
     //call validator on TextFormField
     if (!_formKey.currentState.validate()) {
       return;
     }
     //call onSaved on TextFormField
     _formKey.currentState.save();
-    final Product product = Product(title:_titleValue,
-    description: _descriptionValue,
-    price:_priceValue,
-    image: 'assets/food.jpg');
-    
+    final Product product = Product(
+        title: _titleValue,
+        description: _descriptionValue,
+        price: _priceValue,
+        image: 'assets/food.jpg');
+
     if (widget.product == null) {
-      widget.addProduct(product);
+      addProduct(product);
     } else {
-      widget.updateProduct(widget.index, product);
+      updateProduct(widget.index, product);
     }
 
     Navigator.pushReplacementNamed(context, '/');
+  }
+
+  _buildSubmitButton() {
+    return ScopedModelDescendant<ProductsModel>(
+      builder: (BuildContext context, Widget child, ProductsModel model) =>
+          RaisedButton(
+            child: Text("Save"),
+            color: Theme.of(context).primaryColor,
+            textColor: Colors.white,
+            onPressed: ()=> _submitForm(model.addProducts,model.updateProduct),
+          ),
+    );
   }
 
   _buildPageContent(targetWidth, targetPadding) {
@@ -117,12 +132,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        RaisedButton(
-                          child: Text("Save"),
-                          color: Theme.of(context).primaryColor,
-                          textColor: Colors.white,
-                          onPressed: _submitForm,
-                        )
+                        _buildSubmitButton()
                       ],
                     )
                   ],

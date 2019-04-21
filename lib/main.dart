@@ -5,6 +5,8 @@ import 'package:max_app/pages/auth.dart';
 import 'package:max_app/pages/product.dart';
 import 'package:max_app/pages/product_admin.dart';
 import 'package:max_app/pages/products.dart';
+import 'package:max_app/scoped_models/products.dart';
+import 'package:scoped_model/scoped_model.dart';
 // import 'package:flutter/rendering.dart';
 
 final _platformChannel = MethodChannel('flutter-course.com/battery');
@@ -35,29 +37,14 @@ class MyApp extends StatefulWidget {
 }
   
 class _MyAppState extends State<MyApp>{  
-  final List<Product> _products = [];
 
-  void _addProducts(Product product){
-    setState(() {
-     _products.add(product); 
-    });
-  }
-
-  void _updateProduct(int index,Product product){
-    setState(() {
-     _products[index]=product; 
-    });
-  }
-
-  void _deleteProduct(int index){
-    setState(() {
-      _products.removeAt(index);
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ScopedModel<ProductsModel>(
+      model: ProductsModel(),
+      child: MaterialApp(
       debugShowCheckedModeBanner: false,
       // debugShowMaterialGrid: true,
       theme: ThemeData(
@@ -68,9 +55,9 @@ class _MyAppState extends State<MyApp>{
       ),
       // home: AuthPage(),
       routes:{
-        '/':(BuildContext context)=> ProductsPage(_products),
+        '/':(BuildContext context)=> ProductsPage(),
         '/auth':(BuildContext context)=> AuthPage(),
-        '/admin':(BuildContext context)=> ProductsAdminPage(_addProducts,_updateProduct,_deleteProduct,_products),
+        '/admin':(BuildContext context)=> ProductsAdminPage(),
       },
       onGenerateRoute: (RouteSettings settings){
         final List<String> pathElements = settings.name.split('/');
@@ -82,13 +69,14 @@ class _MyAppState extends State<MyApp>{
         if (pathElements[1]=='product'){
           final int index = int.parse(pathElements[2]);
             return MaterialPageRoute<bool>(builder: (context) 
-               => ProductPage(_products[index].title,_products[index].image));
+               => ProductPage(index));
         }
         return null;
       },
       onUnknownRoute: (RouteSettings settings){
-        return MaterialPageRoute<bool>(builder: (context) => ProductsPage(_products));
+        return MaterialPageRoute<bool>(builder: (context) => ProductsPage());
       }
+    )
     );
   }
 }

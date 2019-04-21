@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:max_app/models/product.dart';
 import 'package:max_app/widgets/products/products.dart';
 
 class ProductsPage extends StatelessWidget{
-  final List<Product> products;
 
-  ProductsPage(this.products);
 
   _buildDrawer(context){
     return Drawer(
@@ -42,7 +39,7 @@ class ProductsPage extends StatelessWidget{
               ],
           ),
           drawer: _buildDrawer(context),
-          body: Products(products));
+          body: Products());
   }
 
 }
