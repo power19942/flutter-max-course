@@ -56,7 +56,8 @@ class _MyAppState extends State<MyApp>{
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         accentColor: Colors.deepPurple,
-        brightness: Brightness.light
+        brightness: Brightness.light,
+        buttonColor: Colors.deepPurple,
       ),
       // home: AuthPage(),
       routes:{

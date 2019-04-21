@@ -13,10 +13,16 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   String _titleValue;
   String _descriptionValue;
   double _priceValue = 0;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget _buildTitleTextField() {
-    return TextField(
-      onChanged: (String val) {
+    return TextFormField(
+      validator: (String val){
+        if(val.isEmpty){
+          return 'title is required';
+        }
+      },
+      onSaved: (String val) {
         setState(() {
           _titleValue = val;
         });
@@ -28,8 +34,13 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   }
 
   Widget _buildDescriptionTextField() {
-    return TextField(
-      onChanged: (String val) {
+    return TextFormField(
+      validator: (String val){
+        if(val.isEmpty){
+          return 'Description is required';
+        }
+      },
+      onSaved: (String val) {
         setState(() {
           _descriptionValue = val;
         });
@@ -41,30 +52,36 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     );
   }
 
-   Widget _buildPriceTextField() {
-    return TextField(
-                  onChanged: (String val) {
-                    setState(() {
-                      _priceValue = double.parse(val);
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Product Price",
-                  ),
-                  keyboardType: TextInputType.number,
-                );
+  Widget _buildPriceTextField() {
+    return TextFormField(
+      onSaved: (String val) {
+        setState(() {
+          _priceValue = double.parse(val);
+        });
+      },
+      decoration: InputDecoration(
+        labelText: "Product Price",
+      ),
+      keyboardType: TextInputType.number,
+    );
   }
 
   void _submitForm() {
-                    final Map<String, dynamic> product = {
-                      'title': _titleValue,
-                      'description': _descriptionValue,
-                      'price': _priceValue,
-                      'image': 'assets/food.jpg'
-                    };
-                    widget.addProduct(product);
-                    Navigator.pushReplacementNamed(context, '/');
-                  }
+    //call validator on TextFormField
+    if(!_formKey.currentState.validate()){
+      return;
+    }
+    //call onSaved on TextFormField
+    _formKey.currentState.save();
+    final Map<String, dynamic> product = {
+      'title': _titleValue,
+      'description': _descriptionValue,
+      'price': _priceValue,
+      'image': 'assets/food.jpg'
+    };
+    widget.addProduct(product);
+    Navigator.pushReplacementNamed(context, '/');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,10 +90,12 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     final double targetPadding = deviceWidth - targetWidth;
 
     return Container(
-      width: targetWidth,
+        width: targetWidth,
         margin: EdgeInsets.all(10),
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal:targetPadding/2 ),
+        child: Form(
+          key: _formKey,
+            child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -95,6 +114,6 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
               ],
             )
           ],
-        ));
+        )));
   }
 }
