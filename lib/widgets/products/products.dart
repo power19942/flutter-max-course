@@ -5,6 +5,18 @@ import '../../scoped_models/products.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Products extends StatelessWidget {
+  ScrollController ctrl;
+  Products(){
+    ctrl  = ScrollController();
+    ctrl.addListener(() {
+    if (ctrl.position.atEdge) {
+      if (ctrl.position.pixels == 0)
+        print("At extreme top");
+      else
+        print("At extreme bottom");
+    }
+    });
+  }
 
   Widget _buildProductList(List<Product> products) {
     Widget productCards = Center(
@@ -12,6 +24,7 @@ class Products extends StatelessWidget {
     );
     if (products.length > 0) {
       productCards = ListView.builder(
+        //controller:ctrl ,
         itemBuilder: (BuildContext context, int index) =>ProductCard(products[index], index),
         itemCount: products.length,
       );

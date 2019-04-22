@@ -12,13 +12,12 @@ class _ProductEditPageState extends State<ProductEditPage> {
   String _titleValue;
   String _descriptionValue;
   double _priceValue = 0;
-  ProductsModel m;
+  ProductsModel model;
 
   @override
   void dispose() {
     super.dispose();
-    print('dispose');
-    m.selectProduct(null);
+    model.selectProduct(null);
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -149,7 +148,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
     return  ScopedModelDescendant<ProductsModel>(
       builder: (BuildContext context, Widget child, ProductsModel model){
          final Widget pageContent = _buildPageContent(model.selectedProduct);
-         m = model;
+         model = model;
           return model.selectedProductIndex == null
         ? pageContent
         : Scaffold(
