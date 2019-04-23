@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:max_app/models/product.dart';
+import 'package:max_app/scoped_models/main.dart';
 import 'package:max_app/scoped_models/products.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -95,12 +96,12 @@ class _ProductEditPageState extends State<ProductEditPage> {
       updateProduct(product);
     }
 
-    Navigator.pushReplacementNamed(context, '/');
+    Navigator.pushReplacementNamed(context, '/products');
   }
 
   _buildSubmitButton() {
-    return ScopedModelDescendant<ProductsModel>(
-      builder: (BuildContext context, Widget child, ProductsModel model) =>
+    return ScopedModelDescendant<MainModel>(
+      builder: (BuildContext context, Widget child, MainModel model) =>
           RaisedButton(
             child: Text("Save"),
             color: Theme.of(context).primaryColor,
@@ -145,8 +146,8 @@ class _ProductEditPageState extends State<ProductEditPage> {
   @override
   Widget build(BuildContext context) {
     
-    return  ScopedModelDescendant<ProductsModel>(
-      builder: (BuildContext context, Widget child, ProductsModel model){
+    return  ScopedModelDescendant<MainModel>(
+      builder: (BuildContext context, Widget child, MainModel model){
          final Widget pageContent = _buildPageContent(model.selectedProduct);
          model = model;
           return model.selectedProductIndex == null

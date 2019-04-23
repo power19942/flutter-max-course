@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:max_app/models/product.dart';
+import 'package:max_app/scoped_models/main.dart';
 import 'package:max_app/widgets/products/product_card.dart';
-import '../../scoped_models/products.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Products extends StatelessWidget {
@@ -33,8 +33,8 @@ class Products extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => ScopedModelDescendant<ProductsModel>(
-    builder: (BuildContext context,Widget child,ProductsModel model) 
+  Widget build(BuildContext context) => ScopedModelDescendant<MainModel>(
+    builder: (BuildContext context,Widget child,MainModel model) 
       => _buildProductList(model.displayedProducts)
   );
 }

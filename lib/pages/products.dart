@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:max_app/scoped_models/main.dart';
 import 'package:max_app/widgets/products/products.dart';
 import 'package:scoped_model/scoped_model.dart';
-import '../scoped_models/products.dart';
 
 class ProductsPage extends StatelessWidget {
   _buildDrawer(context) {
@@ -23,7 +23,7 @@ class ProductsPage extends StatelessWidget {
           leading: Icon(Icons.lock),
           title: Text("Auth"),
           onTap: () {
-            Navigator.pushReplacementNamed(context, '/auth');
+            Navigator.pushReplacementNamed(context, '/');
           },
         )
       ],
@@ -37,7 +37,7 @@ class ProductsPage extends StatelessWidget {
           title: Text("EasyList"),
           centerTitle: true,
           actions: <Widget>[
-            ScopedModelDescendant<ProductsModel>(
+            ScopedModelDescendant<MainModel>(
               builder: (context,child,model) {
                 return IconButton(
                   icon: Icon(model.displayFavoritesOnly ? Icons.favorite : Icons.favorite_border),

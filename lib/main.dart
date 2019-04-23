@@ -5,7 +5,7 @@ import 'package:max_app/pages/auth.dart';
 import 'package:max_app/pages/product.dart';
 import 'package:max_app/pages/product_admin.dart';
 import 'package:max_app/pages/products.dart';
-import 'package:max_app/scoped_models/products.dart';
+import 'package:max_app/scoped_models/main.dart';
 import 'package:scoped_model/scoped_model.dart';
 // import 'package:flutter/rendering.dart';
 
@@ -37,13 +37,11 @@ class MyApp extends StatefulWidget {
 }
   
 class _MyAppState extends State<MyApp>{  
-
   
-
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<ProductsModel>(
-      model: ProductsModel(),
+    return ScopedModel<MainModel>(
+      model: MainModel(),
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
       // debugShowMaterialGrid: true,
@@ -55,8 +53,8 @@ class _MyAppState extends State<MyApp>{
       ),
       // home: AuthPage(),
       routes:{
-        '/':(BuildContext context)=> ProductsPage(),
-        '/auth':(BuildContext context)=> AuthPage(),
+        '/':(BuildContext context)=> AuthPage(),
+        '/products':(BuildContext context)=> ProductsPage(),
         '/admin':(BuildContext context)=> ProductsAdminPage(),
       },
       onGenerateRoute: (RouteSettings settings){

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:max_app/models/product.dart';
-import 'package:max_app/scoped_models/products.dart';
+import 'package:max_app/scoped_models/main.dart';
 import 'package:max_app/widgets/ui_elements/title_default.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -39,8 +39,8 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      child: ScopedModelDescendant<ProductsModel>( 
-        builder: (context,child,ProductsModel model){
+      child: ScopedModelDescendant<MainModel>( 
+        builder: (context,child,model){
           final Product product = model.products[productIndex];
           return Scaffold(
           appBar: AppBar(

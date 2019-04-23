@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:max_app/scoped_models/main.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -84,12 +86,16 @@ class _AuthPageState extends State<AuthPage> {
                 SizedBox(
                   height: 10.0,
                 ),
-                RaisedButton(
+                ScopedModelDescendant<MainModel>(
+                  builder: (context,_,model){
+                    return RaisedButton(
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
                     child: Text('LOGIN'),
                     onPressed: () =>
-                        Navigator.pushReplacementNamed(context, '/products')),
+                      Navigator.pushReplacementNamed(context, '/products'));
+                  },
+                ),
               ],
             ))),
           )),
